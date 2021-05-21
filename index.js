@@ -5,6 +5,9 @@ const app = express()
 app.use(express.json())
 app.use(morgan('tiny'))
 
+const cors = require('cors')
+app.use(cors())
+
 let persons = [
     {
         id: 1,
@@ -65,11 +68,11 @@ app.post('/api/persons', (request, response) => {
     const body = request.body
 
     // check for content in post request
-    if (!body.name || !body.number) {
+    if (!body.name || !body.number) {   // check if name or number is missing
         return response.status(400).json({
             error: 'content missing'
         })
-    } else if (checkName(body.name)) {
+    } else if (checkName(body.name)) {  // check if name exists in phonebook
         return response.status(400).json({
             error: 'name must be unique'
         })
@@ -86,13 +89,14 @@ app.post('/api/persons', (request, response) => {
     response.json(person)
 })
 
+// custom middleware, if nothing else catches the request
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
