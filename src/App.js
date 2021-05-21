@@ -25,6 +25,7 @@ const App = () => {
           .updatePerson(alreadyPerson.id, updatedPerson)
           .then(() => {
             loadPersons()
+            // set notification message
             setNotifMessage(`${newName} has been updated in phonebook`)
             setNotifType('green')
             setNewName('')
@@ -43,6 +44,7 @@ const App = () => {
           .create(nameSubmit)
           .then(response => {
             setPersons(persons.concat(response.data))
+            // notification message
             setNotifMessage(`${newName} has been created in phonebook`)
             setNotifType('green')
             setTimeout(() => {
