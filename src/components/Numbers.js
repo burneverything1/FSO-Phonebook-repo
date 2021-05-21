@@ -2,7 +2,7 @@ import React from 'react'
 
 const Number = ({ personEntry, deleteNumber }) => {
     return(
-        <li>{personEntry.name}, {personEntry.phone}
+        <li>{personEntry.name}, {personEntry.number}
         <button onClick={deleteNumber}>delete</button>
         </li>
     )

@@ -74,6 +74,7 @@ const App = () => {
     setNewPhone(event.target.value)
   }
 
+  // filter people being shown through search text
   const personsToShow = filterText.length > 0
     ? persons.filter(person => person.name.toLowerCase().includes(filterText))
     : persons
