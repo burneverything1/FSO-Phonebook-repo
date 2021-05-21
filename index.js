@@ -3,10 +3,15 @@ const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
-app.use(morgan('tiny'))
+app.use(morgan('tiny'))         //logging with morgan
 
 const cors = require('cors')
 app.use(cors())
+
+/* whenever express gets a GET request it will first check if the build directory
+contains a file corresponding to the request address
+*/
+app.use(express.static('build'))
 
 let persons = [
     {
@@ -32,6 +37,7 @@ let persons = [
 ]
 
 app.get('/api/persons', (request, response) => {
+    console.log(persons);
     response.json(persons)
 })
 
