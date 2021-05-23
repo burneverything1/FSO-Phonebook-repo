@@ -32,7 +32,6 @@ if (process.argv.length = 3) {
         })
 }
 
-
 const person = new Person({
     name: process.argv[3],
     number: process.argv[4]
