@@ -75,9 +75,6 @@ const checkName = (name) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-    console.log(body);
-    console.log(!body.name);
-    console.log(!body.number);
 
     // check for content in post request
     if (!body.name || !body.number) {   // check if name or number is missing
