@@ -75,6 +75,9 @@ const checkName = (name) => {
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
+    console.log(body);
+    console.log(!body.name);
+    console.log(!body.number);
 
     // check for content in post request
     if (!body.name || !body.number) {   // check if name or number is missing
@@ -87,15 +90,16 @@ app.post('/api/persons', (request, response) => {
         })
     }
 
-    const person = {
-        id: Math.floor(Math.random() * 10000),
+    const person = new Person({         // mongodb model
         name: body.name,
         number: body.number
-    }
+    })
 
-    persons = persons.concat(person)
-
-    response.json(person)
+    person
+        .save()
+        .then(savedPerson => {
+            response.json(savedPerson)
+        })
 })
 
 // custom middleware, if nothing else catches the request
