@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddNew = ({ submitHandler, newName, nameChangeHandler, newPhone, phoneChangeHandler }) => {
+const AddNew = ({ submitHandler, newName, nameChangeHandler, newNumber, numberChangeHandler }) => {
     return (
         <>
             <h2>Add a new</h2>
@@ -9,7 +9,7 @@ const AddNew = ({ submitHandler, newName, nameChangeHandler, newPhone, phoneChan
             <input value={newName} onChange={nameChangeHandler}/>
             </div>
             <div>number:
-            <input value={newPhone} onChange={phoneChangeHandler}/>
+            <input value={newNumber} onChange={numberChangeHandler}/>
             </div>
             <div>
             <button type="submit">add</button>

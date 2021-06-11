@@ -8,7 +8,7 @@ import Notification from './components/Notification'
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
-  const [ newPhone, setNewPhone ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
   const [ filterText, setNewFilter ] = useState('')
   const [ notifMessage, setNotifMessage ] = useState(null)
   const [ notifType, setNotifType ] = useState('')
@@ -20,7 +20,7 @@ const App = () => {
     if (personsNames.includes(newName)){
       let alreadyPerson = persons.find(person => person.name === newName)
       if (window.confirm(`${newName} is already in the phonebook, replace the old number with a new one?`)) {
-        const updatedPerson = {...alreadyPerson, phone: newPhone}
+        const updatedPerson = {...alreadyPerson, number: newNumber}
         phonebook
           .updatePerson(alreadyPerson.id, updatedPerson)
           .then(() => {
@@ -29,7 +29,7 @@ const App = () => {
             setNotifMessage(`${newName} has been updated in phonebook`)
             setNotifType('green')
             setNewName('')
-            setNewPhone('')
+            setNewNumber('')
             setTimeout(() => {
               setNotifMessage(null)
             }, 3000);
@@ -38,7 +38,7 @@ const App = () => {
     } else {
         let nameSubmit = {
           name: newName,
-          phone: newPhone
+          number: newNumber
         }
         phonebook
           .create(nameSubmit)
@@ -51,7 +51,7 @@ const App = () => {
               setNotifMessage(null)
             }, 3000);
             setNewName('')
-            setNewPhone('')
+            setNewNumber('')
           })
     }
   }
@@ -70,8 +70,8 @@ const App = () => {
     setNewName(event.target.value)
   }
 
-  const phoneChangeHandler = (event) => {
-    setNewPhone(event.target.value)
+  const numberChangeHandler = (event) => {
+    setNewNumber(event.target.value)
   }
 
   // filter people being shown through search text
@@ -114,8 +114,8 @@ const App = () => {
         submitHandler={submitHandler}
         newName={newName}
         nameChangeHandler={nameChangeHandler}
-        newPhone={newPhone}
-        phoneChangeHandler={phoneChangeHandler}
+        newNumber={newNumber}
+        numberChangeHandler={numberChangeHandler}
       />
       <Numbers
         personsToShow={personsToShow}
