@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "name": "testperson",
-    "number": 1234123
+    "number": 12341
 }
 
 ###

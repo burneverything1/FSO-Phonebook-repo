@@ -77,12 +77,12 @@ app.delete('/api/persons/:id', (request, response) => {
         .catch(error => next(error))
 })
 
-const checkName = (name) => {
+/*const checkName = (name) => {
     let names = persons.map(person => person.name)
     return names.includes(name)
-}
+}*/
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
     // check for content in post request
@@ -90,11 +90,11 @@ app.post('/api/persons', (request, response) => {
         return response.status(400).json({
             error: 'content missing'
         })
-    } else if (checkName(body.name)) {  // check if name exists in phonebook
+    } /*else if (checkName(body.name)) {  // check if name exists in phonebook
         return response.status(400).json({
             error: 'name must be unique'
         })
-    }
+    }*/
 
     const person = new Person({         // mongodb model
         name: body.name,
@@ -106,6 +106,7 @@ app.post('/api/persons', (request, response) => {
         .then(savedPerson => {
             response.json(savedPerson)
         })
+        .catch(error => next(error))
 })
 
 //if user submits person whose name already exists, update number
@@ -138,6 +139,8 @@ const errorHandler = (error, request, response, next) => {
 
     if (error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidationError') {
+        return response.status(400).send({ error: error.message })
     }
 
     next(error)
