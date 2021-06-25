@@ -13,6 +13,14 @@ const App = () => {
   const [ notifMessage, setNotifMessage ] = useState(null)
   const [ notifType, setNotifType ] = useState('')
 
+  const notifyUser = (message, type) => {
+    setNotifMessage(message)
+    setNotifType(type)
+    setTimeout(() => {
+      setNotifMessage(null)
+    }, 3000)
+  }
+
   const submitHandler = (event) => {
     event.preventDefault()
     //check if name is in phonebook
@@ -25,14 +33,9 @@ const App = () => {
           .updatePerson(alreadyPerson.id, updatedPerson)
           .then(() => {
             loadPersons()
-            // set notification message
-            setNotifMessage(`${newName} has been updated in phonebook`)
-            setNotifType('green')
+            notifyUser(`${newName} has been updated in phonebook`, 'green')
             setNewName('')
             setNewNumber('')
-            setTimeout(() => {
-              setNotifMessage(null)
-            }, 3000);
           })
       }
     } else {
@@ -45,13 +48,13 @@ const App = () => {
           .then(response => {
             setPersons(persons.concat(response.data))
             // notification message
-            setNotifMessage(`${newName} has been created in phonebook`)
-            setNotifType('green')
-            setTimeout(() => {
-              setNotifMessage(null)
-            }, 3000);
+            notifyUser(`${newName} has been created in phonebook`, 'green')
             setNewName('')
             setNewNumber('')
+          })
+          .catch(error => {
+            notifyUser(error.response.data['error'], 'red')
+            console.log(error.response.data);
           })
     }
   }
@@ -89,18 +92,10 @@ const App = () => {
       .deletePerson(id)
       .then(() => {
         loadPersons()
-        setNotifMessage(`Person deleted from phonebook`)
-        setNotifType('green')
-        setTimeout(() => {
-          setNotifMessage(null)
-        }, 3000);
+        notifyUser(`Person deleted from phonebook`, 'green')
       })
       .catch(error => {
-        setNotifMessage('Person has already been deleted from phonebook')
-        setNotifType('red')
-        setTimeout(() => {
-          setNotifMessage(null)
-        }, 3000);
+        notifyUser('Person has already been deleted from phonebook', 'red')
       })
     }
   }
