@@ -7,6 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "//": "These next scripts are for automated building of the react prod and heroku deploy",
     "build:ui": "rm -rf build && cd ../FSO-Phonebook-reactfrontend/ && npm run build -- prod && cp -r build ../FSO-Phonebook-nodebackend/",
     "deploy": "git push heroku main",
@@ -29,6 +31,7 @@
     "phoenix": "^1.5.9"
   },
   "devDependencies": {
+    "eslint": "^7.29.0",
     "nodemon": "^2.0.7"
   },
   "engines": {
