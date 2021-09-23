@@ -1,0 +1,2 @@
+heroku url: https://quiet-ridge-81218.herokuapp.com/,
+https://git.heroku.com/quiet-ridge-81218.git
